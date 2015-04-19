@@ -8,6 +8,7 @@ as well as those methods defined in an API.
 import endpoints
 import webapp2
 import base64
+import sys
 
 from protorpc import messages
 from protorpc import message_types
@@ -18,7 +19,7 @@ from apiclient import discovery
 from oauth2client import client as oauth2client
 
 PUBSUB_SCOPES = ['https://www.googleapis.com/auth/pubsub']
-DEFAULT_TOPIC = 'projects/sattestcloudapi/topics/mytopic'
+DEFAULT_TOPIC = "projects/sattestcloudapi/topics/mytopic"
 
 def create_pubsub_client(http=None):
     credentials = oauth2client.GoogleCredentials.get_application_default()
@@ -33,8 +34,11 @@ def create_pubsub_client(http=None):
 def create_default_topic():
 
   client = create_pubsub_client()
-  topic = client.projects().topics().create(
-    name= DEFAULT_TOPIC, body={}).execute()
+  try:
+    topic = client.projects().topics().create(name= DEFAULT_TOPIC, body={}).execute()
+  except:
+     print "Unexpected error:", sys.exc_info()[0]
+    
   return
 
   
@@ -45,8 +49,8 @@ def create_topic_if_doesnt_exist():
         project='projects/sattestcloudapi',
         pageToken=next_page_token).execute()
     topics = resp['topics']
-    print topics
-    if DEFAULT_TOPIC in topics:
+    
+    if "projects/sattestcloudapi/topics/mytopic" in topics:
       return False
     else:
       create_default_topic()
@@ -54,7 +58,7 @@ def create_topic_if_doesnt_exist():
       
     return False
 
-def pubish_myevent(msg) :
+def publish_myevent(msg) :
   client = create_pubsub_client()
   message1 = base64.urlsafe_b64encode(msg)
   # Create a POST body for the Pub/Sub request
