@@ -1,1 +1,1 @@
-{"mixinTypes":["contribution"],"builders":{"configs":{}},"runners":{"configs":{"system:/python/web/python27_gae1914_ext_libs":{"ram":512,"variables":{},"options":{}}},"default":"system:/python/web/python27_gae1914_ext_libs"},"type":"GAEPython","attributes":{"language":["python"],"contribute_branch":["master"],"contribute_mode":["contribute"]}}
+{"mixinTypes":["contribution"],"builders":{"configs":{}},"runners":{"configs":{}},"description":"","type":"blank","attributes":{"contribute_branch":["master"],"contribute_mode":["contribute"]}}
