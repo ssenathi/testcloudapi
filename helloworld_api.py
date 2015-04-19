@@ -11,10 +11,49 @@ import webapp2
 from protorpc import messages
 from protorpc import message_types
 from protorpc import remote
+import httplib2
+
+from apiclient import discovery
+from oauth2client import client as oauth2client
+
+PUBSUB_SCOPES = ['https://www.googleapis.com/auth/pubsub']
+
+def create_pubsub_client(http=None):
+    credentials = oauth2client.GoogleCredentials.get_application_default()
+    if credentials.create_scoped_required():
+        credentials = credentials.create_scoped(PUBSUB_SCOPES)
+    if not http:
+        http = httplib2.Http()
+    credentials.authorize(http)
+
+    return discovery.build('pubsub', 'v1beta2', http=http)
+
+def create_default_topic():
+
+  client = create_pubsub_client()
+  topic = client.projects().topics().create(
+    name='projects/sattestcloudapi/topics/mytopic', body={}).execute()
+  return
+
+  
+def create_topic_if_doesnt_exist():
+    client = create_pubsub_client()
+    next_page_token = None
+    while True:
+      resp = client.projects().topics().list(
+        project='projects/myproject',
+        pageToken=next_page_token).execute()
+      topics = resp['topics']
+      if topics.len <= 0 :
+        create_default_topic()
+        return True
+    return False
+
 
 
 package = 'Hello'
 
+default_topic = create_topic_if_doesnt_exist
 
 class Greeting(messages.Message):
   """Greeting that stores a message."""
