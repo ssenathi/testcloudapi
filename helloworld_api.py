@@ -44,7 +44,7 @@ def create_topic_if_doesnt_exist():
         project='projects/sattestcloudapi',
         pageToken=next_page_token).execute()
       topics = resp['topics']
-      if topics.len <= 0 :
+      if len(topics) <= 0 :
         create_default_topic()
         return True
     return False
