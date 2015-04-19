@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"mixinTypes":["contribution"],"builders":{"configs":{}},"runners":{"configs":{"project://Environment_01-46-53_17-46-2015":{"ram":512,"variables":{},"options":{}},"system:/python/web/python27_gae1914_ext_libs":{"ram":0,"variables":{},"options":{}}},"default":"system:/python/web/python27_gae1914_ext_libs"},"description":"","type":"GAEPython","attributes":{"language":["python"],"contribute_branch":["master"],"contribute_mode":["contribute"]}}
-=======
-{"mixinTypes":["contribution"],"builders":{"configs":{}},"runners":{"configs":{}},"description":"","type":"blank","attributes":{"contribute_branch":["master"],"contribute_mode":["contribute"]}}
->>>>>>> 1a09ac67cb0e29a64b3d7deb47c75a2e60e1d931
+{"mixinTypes":["contribution"],"builders":{"configs":{}},"runners":{"configs":{"system:/python/web/python27_gae1914_ext_libs":{"ram":512,"variables":{},"options":{}}},"default":"system:/python/web/python27_gae1914_ext_libs"},"type":"GAEPython","attributes":{"language":["python"],"contribute_branch":["master"],"contribute_mode":["contribute"]}}
