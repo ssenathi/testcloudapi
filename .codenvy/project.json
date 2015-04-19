@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"mixinTypes":[],"builders":{"configs":{}},"runners":{"configs":{}},"type":"blank","attributes":{}}
-=======
 {"mixinTypes":["contribution"],"builders":{"configs":{}},"runners":{"configs":{"system:/python/web/python27_gae1914_ext_libs":{"ram":512,"variables":{},"options":{}}},"default":"system:/python/web/python27_gae1914_ext_libs"},"type":"GAEPython","attributes":{"language":["python"],"contribute_branch":["master"],"contribute_mode":["contribute"]}}
->>>>>>> f11ddc79362c99ca61254b1e5425164893685d2d
