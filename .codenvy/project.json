@@ -1,0 +1,1 @@
+{"mixinTypes":[],"builders":{"configs":{}},"runners":{"configs":{"project://Environment_01-46-53_17-46-2015":{"ram":512,"variables":{},"options":{}},"system:/python/web/python27_gae1914_ext_libs":{"ram":0,"variables":{},"options":{}}},"default":"system:/python/web/python27_gae1914_ext_libs"},"description":"","type":"GAEPython","attributes":{"language":["python"]}}
