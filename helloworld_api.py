@@ -41,7 +41,7 @@ def create_topic_if_doesnt_exist():
     next_page_token = None
     while True:
       resp = client.projects().topics().list(
-        project='projects/myproject',
+        project='projects/sattestcloudapi',
         pageToken=next_page_token).execute()
       topics = resp['topics']
       if topics.len <= 0 :
@@ -53,7 +53,7 @@ def create_topic_if_doesnt_exist():
 
 package = 'Hello'
 
-default_topic = create_topic_if_doesnt_exist
+default_topic = create_topic_if_doesnt_exist()
 
 class Greeting(messages.Message):
   """Greeting that stores a message."""
