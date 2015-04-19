@@ -7,6 +7,7 @@ as well as those methods defined in an API.
 
 import endpoints
 import webapp2
+import base64
 
 from protorpc import messages
 from protorpc import message_types
@@ -17,6 +18,7 @@ from apiclient import discovery
 from oauth2client import client as oauth2client
 
 PUBSUB_SCOPES = ['https://www.googleapis.com/auth/pubsub']
+DEFAULT_TOPIC = 'projects/sattestcloudapi/topics/mytopic'
 
 def create_pubsub_client(http=None):
     credentials = oauth2client.GoogleCredentials.get_application_default()
@@ -32,24 +34,41 @@ def create_default_topic():
 
   client = create_pubsub_client()
   topic = client.projects().topics().create(
-    name='projects/sattestcloudapi/topics/mytopic', body={}).execute()
+    name= DEFAULT_TOPIC, body={}).execute()
   return
 
   
 def create_topic_if_doesnt_exist():
     client = create_pubsub_client()
     next_page_token = None
-    while True:
-      resp = client.projects().topics().list(
+    resp = client.projects().topics().list(
         project='projects/sattestcloudapi',
         pageToken=next_page_token).execute()
-      topics = resp['topics']
-      if len(topics) <= 0 :
-        create_default_topic()
-        return True
+    topics = resp['topics']
+    print topics
+    if DEFAULT_TOPIC in topics:
+      return False
+    else:
+      create_default_topic()
+      return True
+      
     return False
 
-
+def pubish_myevent(msg) :
+  client = create_pubsub_client()
+  message1 = base64.urlsafe_b64encode(msg)
+  # Create a POST body for the Pub/Sub request
+  body = {
+    'messages': [{'data': message1}]
+    }
+  resp = client.projects().topics().publish(
+    topic=DEFAULT_TOPIC, body=body).execute()
+  
+  message_ids = resp.get('messageIds')
+  if message_ids:
+    return message_ids[0]
+  
+  
 
 package = 'Hello'
 
@@ -100,6 +119,7 @@ apiapp = endpoints.api_server([HelloWorldApi])
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        publish_myevent("homepage")
         self.response.write('Hello Sathish!')
 
 mainapp = webapp2.WSGIApplication([
