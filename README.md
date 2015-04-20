@@ -10,7 +10,7 @@ To invoke Google APIs from App Engine requires the following libraries to be add
 The above libraries have dependencies on following libraries
 - googleapiclient ( used by apiclient)
 - six.py (Python 2 & Compatibility Layer)
-- uriitem ( used by httplib2)
+- uritemplate ( used by httplib2)
 
 
 
