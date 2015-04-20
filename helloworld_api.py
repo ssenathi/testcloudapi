@@ -106,6 +106,7 @@ class HelloWorldApi(remote.Service):
                     path='hellogreeting', http_method='GET',
                     name='greetings.listGreeting')
   def greetings_list(self, unused_request):
+    publish_myevent("greetings_list")
     return STORED_GREETINGS
 
   ID_RESOURCE = endpoints.ResourceContainer(
@@ -117,6 +118,7 @@ class HelloWorldApi(remote.Service):
                     name='greetings.getGreeting')
   def greeting_get(self, request):
     try:
+      publish_myevent("greeting_get")
       return STORED_GREETINGS.items[request.id]
     except (IndexError, TypeError):
       raise endpoints.NotFoundException('Greeting %s not found.' %
