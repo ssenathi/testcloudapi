@@ -31,9 +31,13 @@ def create_pubsub_client(http=None):
 
     return discovery.build('pubsub', 'v1beta2', http=http)
 
+# Create a global default client
+# 
+
+client = create_pubsub_client()
+
 def create_default_topic():
 
-  client = create_pubsub_client()
   try:
     topic = client.projects().topics().create(name= DEFAULT_TOPIC, body={}).execute()
   except:
@@ -43,7 +47,7 @@ def create_default_topic():
 
   
 def create_topic_if_doesnt_exist():
-    client = create_pubsub_client()
+    #client = create_pubsub_client()
     next_page_token = None
     resp = client.projects().topics().list(
         project='projects/sattestcloudapi',
@@ -59,7 +63,7 @@ def create_topic_if_doesnt_exist():
     return False
 
 def publish_myevent(msg) :
-  client = create_pubsub_client()
+  #client = create_pubsub_client()
   message1 = base64.urlsafe_b64encode(msg)
   # Create a POST body for the Pub/Sub request
   body = {
