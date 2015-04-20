@@ -54,7 +54,7 @@ def create_topic_if_doesnt_exist():
         pageToken=next_page_token).execute()
     topics = resp['topics']
     
-    if "projects/sattestcloudapi/topics/mytopic" in topics:
+    if DEFAULT_TOPIC in topics:
       return False
     else:
       create_default_topic()
